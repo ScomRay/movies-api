@@ -1,0 +1,7 @@
+.editorConfig
+
+node_modules/
+
+.env
+
+.eslintrc
