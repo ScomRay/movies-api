@@ -1,24 +1,48 @@
 const express = require('express');
-const { homeController } = require('../controller/home');
-const { createMovie, getMovies, getMovieById, searchMovieByTitle, updateMovieById, deleteMovieById, removeMovieById } = require('../controller/movie');
 const router = express.Router();
+const { homeController } = require('../controller/home');
+const movieController = require('../controller/movie');
+const userController = require('../controller/user');
+const authController = require('../controller/auth');
+const isAuthenticated = require('../middleware/isAuthenticated');
 
-router.get('/', homeController);
 
-router.post('/movie', createMovie);
+router.get('/', isAuthenticated,homeController);
 
-router.get('/movies', getMovies);
+router.post('/movie', movieController.createMovie);
 
-router.get('/movie/:id', getMovieById);
+router.get('/movies', movieController.getMovies);
 
-router.get('/search', searchMovieByTitle);
+router.get('/movie/:id', movieController.getMoviesById);
 
-router.patch('/movie/:id', updateMovieById);
+router.get('/search/movie', movieController.searchMoviesByTitle);
 
-//Borrado Físico
-router.delete('/movie/:id', deleteMovieById);
+router.patch('/movie/:id', movieController.updateMoviesById);
 
-//Borrado lógico
-router.delete('/movies/:id', removeMovieById);
+router.delete('/movie/:id', movieController.deleteMoviesById);
+
+router.delete('/movies/:id', movieController.removeMoviesById);
+
+router.post('/user', userController.createUser);
+
+router.get('/users', userController.getUsers);
+
+router.get('/user/:id', userController.getUsersById);
+
+router.get('/search/user', userController.searchUsersByName);
+
+router.patch('/user/:id', userController.updateUsersById);
+
+router.delete('/user/:id', userController.deleteUsersById);
+
+router.delete('/users/:id', userController.removeUsersById);
+
+router.get('/user/:email',userController.getUsersByEmail);
+
+router.get('/user/movie', userController.addMoviesToUser);
+
+router.post('/signup', authController.signUp);
+
+router.post('/login', authController.logIn);
 
 module.exports = router;

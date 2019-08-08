@@ -1,5 +1,5 @@
 const { Movie } = require('../model/Movie');
-const { newMovie, allMovies, searchByTitle, MovieById, updateById, deleteById, removeById } = require('../actions/movie');
+const { newMovie, allMovies, searchMovieByTitle, getMovieById, updateMovieById, deleteMovieById, removeMovieById } = require('../actions/movie');
 
 const createMovie = (req, resp) => {
   const data = Movie(req.body);
@@ -14,46 +14,46 @@ const getMovies = (req, resp) => {
     .catch((error) => resp.status(400).send(error));
 };
 
-const getMovieById = (req, resp) => {
+const getMoviesById = (req, resp) => {
   const { id } = req.params;
-  MovieById(id)
+  getMovieById(id)
     .then((movie) => movie
       ? resp.status(200).json(movie)
       : resp.status(404).send({message: 'Not found'}))
     .catch((error) => resp.status(400).send(error));
 };
 
-const searchMovieByTitle = (req, resp) => {
+const searchMoviesByTitle = (req, resp) => {
   const { data } = req.query;
-  searchByTitle(data)
+  searchMovieByTitle(data)
     .then((movie) => movie
       ? resp.status(200).json(movie)
       : resp.status(404).send({message: 'Not found'}))
     .catch((error) => resp.status(400).send(error));
 };
 
-const updateMovieById = (req, resp) => {
+const updateMoviesById = (req, resp) => {
   const data = req.body;
   const { id } = req.params;
-  updateById(id, data)
+  updateMovieById(id, data)
     .then((movie) => movie
       ? resp.status(200).json(movie)
       : resp.status(404).send({message: 'Not found'}))
     .catch((error) => resp.status(400).send(error));
 };
 
-const deleteMovieById = (req, resp) => {
+const deleteMoviesById = (req, resp) => {
   const { id } = req.params;
-  deleteById(id)
+  deleteMovieById(id)
     .then((movie) => movie
       ? resp.status(200).json(movie)
       : resp.status(404).send({message: 'Not found'}))
     .catch((error) => resp.status(400).send(error));
 };
 
-const removeMovieById = (req, resp) => {
+const removeMoviesById = (req, resp) => {
   const { id } = req.params;
-  removeById(id)
+  removeMovieById(id)
     .then((movie) => movie
       ? resp.status(200).json(movie)
       : resp.status(404).send({message: 'Not found'}))
@@ -63,9 +63,9 @@ const removeMovieById = (req, resp) => {
 module.exports = {
   createMovie,
   getMovies,
-  getMovieById,
-  searchMovieByTitle,
-  updateMovieById,
-  deleteMovieById,
-  removeMovieById
+  getMoviesById,
+  searchMoviesByTitle,
+  updateMoviesById,
+  deleteMoviesById,
+  removeMoviesById
 };

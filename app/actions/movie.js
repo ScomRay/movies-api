@@ -8,32 +8,32 @@ const allMovies = async() => {
   return Movie.find({status: true}).sort('title').exec();
 };
 
-const MovieById = async(id) => {
+const getMovieById = async(id) => {
   return Movie.findById(id).where({status: true}).exec();
 };
 
-const searchByTitle = async(data) => {
+const searchMovieByTitle = async(data) => {
   return Movie.findOne({data}).where({status: true}).exec();
 };
 
-const updateById = async(id, data) => {
+const updateMovieById = async(id, data) => {
   return Movie.findByIdAndUpdate(id, {$set: data}, {new: true}).exec();
 };
 
-const deleteById = async(id) => {
+const deleteMovieById = async(id) => {
   return Movie.findByIdAndDelete(id).exec();
 };
 
-const removeById = async(id) => {
+const removeMovieById = async(id) => {
   return Movie.findByIdAndUpdate(id, {$set: {status: false}}, {new: true});
 };
 
 module.exports = {
   newMovie,
   allMovies,
-  MovieById,
-  searchByTitle,
-  updateById,
-  deleteById,
-  removeById
+  getMovieById,
+  searchMovieByTitle,
+  updateMovieById,
+  deleteMovieById,
+  removeMovieById
 };
